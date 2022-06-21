@@ -30,6 +30,7 @@ export function handleTakerAsk(event: TakerAsk): void {
   let collection = Collection.load(event.params.collection.toHex());
   if (collection === null) {
     collection = new Collection(event.params.collection.toHex());
+    collection.block = ZERO_BI;
     collection.totalTransactions = ZERO_BI;
     collection.totalTakerBidTransactions = ZERO_BI;
     collection.totalTakerAskTransactions = ZERO_BI;
@@ -38,6 +39,7 @@ export function handleTakerAsk(event: TakerAsk): void {
     collection.totalTakerAskVolume = ZERO_BD;
     collection.totalRoyaltyPaid = ZERO_BD;
   }
+  collection.block = event.block.number;
   collection.totalTransactions = collection.totalTransactions.plus(ONE_BI);
   collection.totalTakerAskTransactions = collection.totalTakerAskTransactions.plus(ONE_BI);
   collection.totalVolume = collection.totalVolume.plus(toBigDecimal(event.params.price));
@@ -132,6 +134,7 @@ export function handleTakerBid(event: TakerBid): void {
   let collection = Collection.load(event.params.collection.toHex());
   if (collection === null) {
     collection = new Collection(event.params.collection.toHex());
+    collection.block = ZERO_BI;
     collection.totalTransactions = ZERO_BI;
     collection.totalTakerBidTransactions = ZERO_BI;
     collection.totalTakerAskTransactions = ZERO_BI;
@@ -140,6 +143,7 @@ export function handleTakerBid(event: TakerBid): void {
     collection.totalTakerAskVolume = ZERO_BD;
     collection.totalRoyaltyPaid = ZERO_BD;
   }
+  collection.block = event.block.number;
   collection.totalTransactions = collection.totalTransactions.plus(ONE_BI);
   collection.totalTakerBidTransactions = collection.totalTakerBidTransactions.plus(ONE_BI);
   collection.totalVolume = collection.totalVolume.plus(toBigDecimal(event.params.price));
@@ -234,6 +238,7 @@ export function handleRoyaltyPayment(event: RoyaltyPayment): void {
   let collection = Collection.load(event.params.collection.toHex());
   if (collection === null) {
     collection = new Collection(event.params.collection.toHex());
+    collection.block = ZERO_BI;
     collection.totalTransactions = ZERO_BI;
     collection.totalTakerBidTransactions = ZERO_BI;
     collection.totalTakerAskTransactions = ZERO_BI;
@@ -242,6 +247,7 @@ export function handleRoyaltyPayment(event: RoyaltyPayment): void {
     collection.totalTakerAskVolume = ZERO_BD;
     collection.totalRoyaltyPaid = ZERO_BD;
   }
+  collection.block = event.block.number;
   collection.totalRoyaltyPaid = collection.totalRoyaltyPaid.plus(toBigDecimal(event.params.amount));
   collection.save();
 

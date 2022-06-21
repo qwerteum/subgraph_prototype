@@ -5,6 +5,9 @@ type Collection @entity {
   "ID (collection address)"
   id: ID!
 
+  "last action block"
+  block: BigInt!
+
   "Total number of transactions"
   totalTransactions: BigInt!
 
